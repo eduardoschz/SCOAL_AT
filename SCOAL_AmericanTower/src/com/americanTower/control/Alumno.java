@@ -97,6 +97,7 @@ public class Alumno {
         for (int i = 0; i < materias.size(); i++) {
             temp.append(materias.get(i).printToCSV());
         }
+        temp.setCharAt(temp.length()-1, '\u0000');
         return temp.toString();
     }
 

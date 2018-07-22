@@ -13,7 +13,7 @@ import java.util.Random;
  * @author Eduardo Sanchez
  */
 public class Tesst {
-/*
+
     public static void main(String[] args) {
         ArrayList<Alumno> alumnos = new ArrayList<>();
         ArrayList<Materia> materias = new ArrayList<>();
@@ -39,10 +39,10 @@ public class Tesst {
             alumnos.get(i).setMaterias(materias);
         }
         
-        Archivo.generarArchivo(alumnos);
+        Archivo.generarArchivoCSV(alumnos);
             
         }
-      */  
+      
         
     }
 
