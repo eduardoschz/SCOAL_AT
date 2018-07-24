@@ -79,6 +79,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         lblBusqueda.setText("Busqueda");
 
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido Materno", "Apellido Paterno", "Matricula", " " }));
         cbxCriterio.setToolTipText("Seleccione el criterio de busqueda");
 
         lblCriterio.setText("Criterio");
@@ -148,7 +149,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,12 +192,14 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addComponent(lblMatricula))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCriterio)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCriterio)
+                                .addGap(96, 96, 96))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbxCriterio, 0, 117, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar)))
-                        .addGap(23, 23, 23)
+                                .addComponent(btnBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(scrollList))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblNombre)
