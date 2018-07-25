@@ -20,30 +20,27 @@ public class Tesst {
         ArrayList<Parcial> parciales = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
-            parciales.add(new Parcial(i+1, new Random().nextInt(5)+5.0));
+            parciales.add(new Parcial(i + 1, new Random().nextInt(5) + 5.0));
         }
-        
+
         for (int i = 0; i < 5; i++) {
-            materias.add(new Materia("M"+i));
+            materias.add(new Materia("M" + i));
         }
-        
+
         for (int i = 0; i < materias.size(); i++) {
             materias.get(i).setParciales(parciales);
         }
-        
+
         for (int i = 0; i < 10; i++) {
-            alumnos.add(new Alumno("N"+i, "AP"+i, "AM"+i, "MAT"+i));
+            alumnos.add(new Alumno("N" + i, "AP" + i, "AM" + i, "MAT" + i));
         }
-        
+
         for (int i = 0; i < alumnos.size(); i++) {
             alumnos.get(i).setMaterias(materias);
         }
-        
-        Archivo.generarArchivoCSV(alumnos);
-            
-        }
-      
-        
+
+        new Archivo().generaCSV(alumnos);
+
     }
 
-
+}

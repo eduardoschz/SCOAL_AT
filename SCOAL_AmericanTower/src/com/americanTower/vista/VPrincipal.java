@@ -5,17 +5,27 @@
  */
 package com.americanTower.vista;
 
+import com.americanTower.control.Alumno;
+import com.americanTower.control.Archivo;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eduardo Sanchez
  */
 public class VPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VPrincipal
-     */
+    private ArrayList<Alumno> lista = new ArrayList<>();
+    private Alumno temp;
+    private int indice;
+    private Archivo archivo = new Archivo();
+    private DefaultListModel modeloLista = new DefaultListModel();
+
     public VPrincipal() {
         initComponents();
+        listBusqueda.setModel(modeloLista);
     }
 
     /**
@@ -53,21 +63,21 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblPath = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblPeso = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jLabel5 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuAbrir = new javax.swing.JMenuItem();
+        menuNuevo = new javax.swing.JMenuItem();
+        menuCerrar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuGuardar = new javax.swing.JMenuItem();
+        menuGuardarComo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jMenuItem4.setText("jMenuItem4");
@@ -79,12 +89,17 @@ public class VPrincipal extends javax.swing.JFrame {
 
         lblBusqueda.setText("Busqueda");
 
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido Materno", "Apellido Paterno", "Matricula", " " }));
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido Materno", "Apellido Paterno", "Matricula" }));
         cbxCriterio.setToolTipText("Seleccione el criterio de busqueda");
 
         lblCriterio.setText("Criterio");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         lblMatricula.setText("Matricula");
 
@@ -162,15 +177,15 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Ruta archivo");
         jToolBar1.add(jLabel1);
 
-        jLabel3.setText("path");
-        jToolBar1.add(jLabel3);
+        lblPath.setText("path");
+        jToolBar1.add(lblPath);
         jToolBar1.add(jSeparator2);
 
         jLabel2.setText("Tamaño:");
         jToolBar1.add(jLabel2);
 
-        jLabel4.setText("0 Kb");
-        jToolBar1.add(jLabel4);
+        lblPeso.setText("0 Kb");
+        jToolBar1.add(lblPeso);
         jToolBar1.add(jSeparator3);
 
         jLabel5.setText("general tooltip");
@@ -266,30 +281,45 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Abrir...");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setText("Nuevo...");
-        jMenu1.add(jMenuItem6);
-
-        jMenuItem5.setText("Cerrar");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        menuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menuAbrir.setText("Abrir...");
+        menuAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                menuAbrirActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(menuAbrir);
+
+        menuNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menuNuevo.setText("Nuevo...");
+        menuNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuNuevoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuNuevo);
+
+        menuCerrar.setText("Cerrar");
+        menuCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCerrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuCerrar);
         jMenu1.add(jSeparator1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Guardar...");
-        jMenu1.add(jMenuItem2);
+        menuGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menuGuardar.setText("Guardar...");
+        menuGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuGuardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuGuardar);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Guardar como...");
-        jMenu1.add(jMenuItem3);
+        menuGuardarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuGuardarComo.setText("Exportar a CSV...");
+        jMenu1.add(menuGuardarComo);
 
         jMenuBar1.add(jMenu1);
 
@@ -312,9 +342,95 @@ public class VPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void menuCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarActionPerformed
+        limparFormulario();
+    }//GEN-LAST:event_menuCerrarActionPerformed
+
+    private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
+        lista = archivo.leerArchivo_S();
+        this.lblPath.setText(archivo.getUbicacion());
+        this.lblPeso.setText(archivo.getPeso());
+    }//GEN-LAST:event_menuAbrirActionPerformed
+
+    private void menuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarActionPerformed
+        archivo.guardarArchivo_S(lista);
+    }//GEN-LAST:event_menuGuardarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar((String)this.cbxCriterio.getSelectedItem(), txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
+        new VListaAlumno().setVisible(true);
+    }//GEN-LAST:event_menuNuevoActionPerformed
+
+    private void limparFormulario() {
+        this.txtBuscar.setText("");
+        this.txtMaterno.setText("");
+        this.txtPaterno.setText("");
+        this.txtNombre.setText("");
+        this.lblPeso.setText(" ");
+        this.lblPath.setText(" ");
+    }
+
+    private void buscar(String criterio, String elemento) {
+        if (txtBuscar.getText().equals("") || txtBuscar.getText().equals(" ")) {
+            JOptionPane.showMessageDialog(this, "Debe escribir almenos un caracter para realizar la busqueda", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            switch (criterio) {
+                case "Nombre":
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(indice).getNombre().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(indice));
+                        }
+                        listBusqueda.revalidate();
+                    }
+                    if (listBusqueda.getModel().getSize() == 0) {
+                        JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                case "Apellido Paterno":
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(indice).getApellidoPat().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(indice));
+                        }
+                        listBusqueda.revalidate();
+                    }
+                    if (listBusqueda.getModel().getSize() == 0) {
+                        JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                case "Apellido Materno":
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(indice).getApellidoMat().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(indice));
+                        }
+                        listBusqueda.revalidate();
+                    }
+                    if (listBusqueda.getModel().getSize() == 0) {
+                        JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                case "Matricula":
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(indice).getMatricula().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(indice));
+                        }
+                        listBusqueda.revalidate();
+                    }
+                    if (listBusqueda.getModel().getSize() == 0) {
+                        JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private int binaria(int a, int b) {
+        return 0;
+    }
 
     /**
      * @param args the command line arguments
@@ -359,18 +475,11 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -384,7 +493,14 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPaterno;
+    private javax.swing.JLabel lblPath;
+    private javax.swing.JLabel lblPeso;
     private javax.swing.JList<String> listBusqueda;
+    private javax.swing.JMenuItem menuAbrir;
+    private javax.swing.JMenuItem menuCerrar;
+    private javax.swing.JMenuItem menuGuardar;
+    private javax.swing.JMenuItem menuGuardarComo;
+    private javax.swing.JMenuItem menuNuevo;
     private javax.swing.JPanel panCambios;
     private javax.swing.JScrollPane scrollList;
     private javax.swing.JScrollPane scrollTabla;

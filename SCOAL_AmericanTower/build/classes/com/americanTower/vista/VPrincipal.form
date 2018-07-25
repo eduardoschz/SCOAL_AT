@@ -14,46 +14,55 @@
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="menuAbrir">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAbrirActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+            <MenuItem class="javax.swing.JMenuItem" name="menuNuevo">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuNuevoActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="menuCerrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cerrar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCerrarActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="menuGuardar">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuGuardarActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="menuGuardarComo">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+S"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Guardar como..."/>
+                <Property name="text" type="java.lang.String" value="Exportar a CSV..."/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -226,12 +235,11 @@
         <Component class="javax.swing.JComboBox" name="cbxCriterio">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
+              <StringArray count="4">
                 <StringItem index="0" value="Nombre"/>
                 <StringItem index="1" value="Apellido Materno"/>
                 <StringItem index="2" value="Apellido Paterno"/>
                 <StringItem index="3" value="Matricula"/>
-                <StringItem index="4" value=" "/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Seleccione el criterio de busqueda"/>
@@ -249,6 +257,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMatricula">
           <Properties>
@@ -412,7 +423,7 @@
                 <Property name="text" type="java.lang.String" value="Ruta archivo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="lblPath">
               <Properties>
                 <Property name="text" type="java.lang.String" value="path"/>
               </Properties>
@@ -424,7 +435,7 @@
                 <Property name="text" type="java.lang.String" value="Tama&#xf1;o:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="lblPeso">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0 Kb"/>
               </Properties>
