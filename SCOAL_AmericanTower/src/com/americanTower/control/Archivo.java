@@ -73,9 +73,9 @@ public class Archivo {
         }
     }
 
-    public void guardarArchivo_S(ArrayList datos) {
+    public void guardarArchivoAlumnos_S(ArrayList datos) {
         if (datos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay registros para guardar", "Registros - FES Aragon", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay registros para guardar", "SCOAL - Lista Alumnos", JOptionPane.INFORMATION_MESSAGE);
         } else {
             FileOutputStream fos = null;
             JFileChooser jfc = new JFileChooser();
@@ -84,7 +84,7 @@ public class Archivo {
                 jfc.setCurrentDirectory(new File(System.getProperty("user.dir") + File.pathSeparator + "Documents"));
                 int a = jfc.showSaveDialog(null);
                 if (a == JFileChooser.APPROVE_OPTION) {
-                    File archivo = new File(jfc.getSelectedFile() + ".sca");
+                    File archivo = new File(jfc.getSelectedFile() + ".lst");
 
                     fos = new FileOutputStream(archivo);
                     ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -110,10 +110,10 @@ public class Archivo {
 
     }
 
-    public ArrayList leerArchivo_S() {
+    public ArrayList leerArchivoAlumnos_S() {
         FileInputStream fis = null;
         JFileChooser jfc = new JFileChooser();
-        jfc.addChoosableFileFilter(new Filtro());
+        jfc.addChoosableFileFilter(new FiltroListaAlumnos());
 
         ArrayList<Object> datos = new ArrayList<>();
 
@@ -137,9 +137,6 @@ public class Archivo {
                 }
 
             }
-
-            //p = (Persona) ois.readObject();
-            //System.out.println(p.toString());
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -158,4 +155,83 @@ public class Archivo {
         return datos;
     }
 
+    public void guardarArchivoMaterias_S(ArrayList datos) {
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay materias para guardar", "SCOAL - Materias", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            FileOutputStream fos = null;
+            JFileChooser jfc = new JFileChooser();
+
+            try {
+                jfc.setCurrentDirectory(new File(System.getProperty("user.dir") + File.pathSeparator + "Documents"));
+                int a = jfc.showSaveDialog(null);
+                if (a == JFileChooser.APPROVE_OPTION) {
+                    File archivo = new File(jfc.getSelectedFile() + ".lmt");
+
+                    fos = new FileOutputStream(archivo);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+                    for (int i = 0; i < datos.size(); i++) {
+                        oos.writeObject(datos.get(i));
+                    }
+
+                }
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    fos.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+    }
+    
+    public ArrayList leerArchivoMaterias_S() {
+        FileInputStream fis = null;
+        JFileChooser jfc = new JFileChooser();
+        jfc.addChoosableFileFilter(new FiltroListaAlumnos());
+
+        ArrayList<Object> datos = new ArrayList<>();
+
+        try {
+            jfc.setCurrentDirectory(new File(System.getProperty("user.dir") + File.pathSeparator + "Documents"));
+
+            int a = jfc.showOpenDialog(null);
+
+            if (a == JFileChooser.APPROVE_OPTION) {
+                File archivo = new File(jfc.getSelectedFile() + "");
+                
+                fis = new FileInputStream(archivo);
+                
+                ObjectInputStream ois = new ObjectInputStream(fis);
+
+                while (fis.available() != 0) {
+                    Materia m = (Materia) ois.readObject();
+                    datos.add(m);
+                }
+
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (NullPointerException ex){
+                //ex.printStackTrace();
+            }
+        }
+        return datos;
+    }
 }

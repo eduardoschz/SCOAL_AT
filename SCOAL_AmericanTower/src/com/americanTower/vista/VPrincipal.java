@@ -323,7 +323,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Editar");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -347,13 +347,13 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCerrarActionPerformed
 
     private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
-        lista = archivo.leerArchivo_S();
+        lista = archivo.leerArchivoMaterias_S();
         this.lblPath.setText(archivo.getUbicacion());
         this.lblPeso.setText(archivo.getPeso());
     }//GEN-LAST:event_menuAbrirActionPerformed
 
     private void menuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarActionPerformed
-        archivo.guardarArchivo_S(lista);
+        archivo.guardarArchivoAlumnos_S(lista);
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

@@ -12,14 +12,14 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author m01
  */
-public class Filtro extends FileFilter {
+public class FiltroListaAlumnos extends FileFilter {
 
     private String ext;
     private String descripcion;
 
-    public Filtro() {
-        this.ext = ".sca";
-        this.descripcion = ".sca - Registros de SCOAL";
+    public FiltroListaAlumnos() {
+        this.ext = ".lst";
+        this.descripcion = "*.lst - Lista de Alumnos";
     }
 
     @Override
