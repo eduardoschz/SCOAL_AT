@@ -326,6 +326,11 @@ public class VPrincipal extends javax.swing.JFrame {
 
         menuGuardarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuGuardarComo.setText("Exportar a CSV...");
+        menuGuardarComo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuGuardarComoActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuGuardarComo);
 
         jMenuBar1.add(jMenu1);
@@ -364,6 +369,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        modeloLista.clear();
         buscar((String) this.cbxCriterio.getSelectedItem(), txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -373,9 +379,16 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void listBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listBusquedaMouseClicked
         if (evt.getClickCount() == 2) {
-            this.txtNombre.setText(t);
+            this.txtNombre.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getNombre());
+            this.txtPaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoPat());
+            this.txtMaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoMat());
+            this.txtMatricula.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getMatricula());
         }
     }//GEN-LAST:event_listBusquedaMouseClicked
+
+    private void menuGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarComoActionPerformed
+        archivo.generaCSV(lista);
+    }//GEN-LAST:event_menuGuardarComoActionPerformed
 
     private void limparFormulario() {
         this.txtBuscar.setText("");
@@ -390,6 +403,7 @@ public class VPrincipal extends javax.swing.JFrame {
         if (txtBuscar.getText().equals("") || txtBuscar.getText().equals(" ")) {
             JOptionPane.showMessageDialog(this, "Debe escribir almenos un caracter para realizar la busqueda", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
         } else {
+            index.clear();
             switch (criterio) {
                 case "Nombre":
                     for (int i = 0; i < lista.size(); i++) {

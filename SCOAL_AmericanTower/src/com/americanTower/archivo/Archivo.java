@@ -59,19 +59,27 @@ public class Archivo {
     }
 
     public void generaCSV(ArrayList<Alumno> datos) {
-        try {
-            File archivo = new File("archivo2.csv");
-            FileWriter fw = new FileWriter(archivo);
-            BufferedWriter bw = new BufferedWriter(fw);
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay registros para guardar", "SCOAL - Lista Alumnos", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JFileChooser jfc = new JFileChooser();
+            try {
+                jfc.setCurrentDirectory(new File(System.getProperty("user.dir") + File.pathSeparator + "Documents"));
+                int a = jfc.showSaveDialog(null);
+                if (a == JFileChooser.APPROVE_OPTION) {
+                    File archivo = new File(jfc.getSelectedFile() + ".csv");
+                    FileWriter fw = new FileWriter(archivo);
+                    try (BufferedWriter bw = new BufferedWriter(fw)) {
+                        for (int i = 0; i < datos.size(); i++) {
+                            bw.write(datos.get(i).printToCSV());
+                            bw.newLine();
+                        }
+                    }
+                }
 
-            for (int i = 0; i < datos.size(); i++) {
-                bw.write(datos.get(i).printToCSV());
-                bw.newLine();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            bw.close();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -130,7 +138,7 @@ public class Archivo {
                 this.peso = archivo.length() > 1024 ? String.valueOf(archivo.length() / 1024) + "Kb" : String.valueOf(archivo.length()) + "b";
                 this.ubicacion = archivo.getCanonicalPath();
                 fis = new FileInputStream(archivo);
-                
+
                 ObjectInputStream ois = new ObjectInputStream(fis);
 
                 while (fis.available() != 0) {
@@ -150,7 +158,7 @@ public class Archivo {
                 fis.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            } catch (NullPointerException ex){
+            } catch (NullPointerException ex) {
                 //ex.printStackTrace();
             }
         }
@@ -193,7 +201,7 @@ public class Archivo {
         }
 
     }
-    
+
     public ArrayList leerArchivoMaterias_S() {
         FileInputStream fis = null;
         JFileChooser jfc = new JFileChooser();
@@ -208,9 +216,9 @@ public class Archivo {
 
             if (a == JFileChooser.APPROVE_OPTION) {
                 File archivo = new File(jfc.getSelectedFile() + "");
-                
+
                 fis = new FileInputStream(archivo);
-                
+
                 ObjectInputStream ois = new ObjectInputStream(fis);
 
                 while (fis.available() != 0) {
@@ -230,7 +238,7 @@ public class Archivo {
                 fis.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            } catch (NullPointerException ex){
+            } catch (NullPointerException ex) {
                 //ex.printStackTrace();
             }
         }
