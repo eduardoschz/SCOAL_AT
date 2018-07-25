@@ -30,7 +30,7 @@ public class ModeloTablaParciales implements TableModel {
         this.materias = a.getMaterias();
     }
 
-    public Alumno getDatos() {
+    public Alumno getAlumno() {
         return alumno;
     }
 

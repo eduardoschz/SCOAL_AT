@@ -7,10 +7,16 @@ package com.americanTower.vista;
 
 import com.americanTower.control.Alumno;
 import com.americanTower.archivo.Archivo;
+import com.americanTower.control.Materia;
+import com.americanTower.control.Parcial;
 import com.americanTower.modelo.ModeloTablaParciales;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -28,6 +34,9 @@ public class VPrincipal extends javax.swing.JFrame {
     private Archivo archivo = new Archivo();
     private DefaultListModel modeloLista = new DefaultListModel();
     private ModeloTablaParciales mtp;
+    private ArrayList<JTextField> txts = new ArrayList<>();
+    private ArrayList<JCheckBox> chk = new ArrayList<>();
+    private JButton btnOk;
 
     public VPrincipal() {
         initComponents();
@@ -76,8 +85,6 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblPeso = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuAbrir = new javax.swing.JMenuItem();
@@ -149,6 +156,11 @@ public class VPrincipal extends javax.swing.JFrame {
         btnActualizar.setText("Actualizar");
 
         jButton1.setText("Eliminar Parcial");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panCambiosLayout = new javax.swing.GroupLayout(panCambios);
         panCambios.setLayout(panCambiosLayout);
@@ -183,7 +195,7 @@ public class VPrincipal extends javax.swing.JFrame {
         panelParciales.setLayout(panelParcialesLayout);
         panelParcialesLayout.setHorizontalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelParcialesLayout.setVerticalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,10 +218,6 @@ public class VPrincipal extends javax.swing.JFrame {
         lblPeso.setText("0 Kb");
         jToolBar1.add(lblPeso);
         jToolBar1.add(jSeparator3);
-
-        jButton2.setText("OK");
-
-        jButton3.setText("Cancel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,20 +252,16 @@ public class VPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblMaterno)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panelParciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton3))
-                                .addGap(92, 92, 92))
-                            .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNombre))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNombre))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -293,19 +297,13 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenu1.setText("Archivo");
@@ -421,19 +419,88 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarComoActionPerformed
 
     private void btnNuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevasActionPerformed
-        GridLayout gl = new GridLayout(mtp.getDatos().getMaterias().size(), 2);
+        GridLayout gl = new GridLayout(mtp.getAlumno().getMaterias().size() + 1, 2);
         panelParciales.setLayout(gl);
-        for (int i = 0; i < mtp.getDatos().getMaterias().size(); i++) {
-            JLabel lblTemp = new JLabel(mtp.getDatos().getMaterias().get(i).getNombre());
-            lblTemp.setSize(30, 20);
+        for (int i = 0; i < mtp.getAlumno().getMaterias().size(); i++) {
             JTextField txtTemp = new JTextField();
             txtTemp.setSize(30, 20);
-            panelParciales.add(lblTemp);
-            panelParciales.add(txtTemp);
+            txts.add(txtTemp);
         }
+        for (int i = 0; i < mtp.getAlumno().getMaterias().size(); i++) {
+            JLabel lblTemp = new JLabel(mtp.getAlumno().getMaterias().get(i).getNombre());
+            lblTemp.setSize(30, 20);
+
+            panelParciales.add(lblTemp);
+            panelParciales.add(txts.get(i));
+        }
+        btnOkNew();
+        btnOk.setSize(30, 20);
+        panelParciales.add(btnOk);
         panelParciales.revalidate();
 
     }//GEN-LAST:event_btnNuevasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        GridLayout gl = new GridLayout(1, mtp.getAlumno().getMaterias().size() + 1);
+        panelParciales.setLayout(gl);
+        for (int i = 0; i < mtp.getAlumno().getMaterias().get(0).getParciales().size(); i++) {
+            JCheckBox tempC = new JCheckBox("Parcial " + (i + 1));
+
+            chk.add(tempC);
+        }
+        for (int i = 0; i < mtp.getAlumno().getMaterias().get(0).getParciales().size(); i++) {
+            panelParciales.add(chk.get(i));
+        }
+        btnOkDel();
+        panelParciales.add(btnOk);
+        panelParciales.revalidate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void btnOkNew() {
+        btnOk = new JButton("OK");
+        btnOk.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ArrayList<Materia> temp = mtp.getAlumno().getMaterias();
+                for (int i = 0; i < temp.size(); i++) {
+                    temp.get(i).nuevaCalificacion(Double.parseDouble(txts.get(i).getText()));
+                    txts.get(i).setText("");
+                }
+                panelParciales.removeAll();
+                panelParciales.repaint();
+            }
+
+        });
+
+        this.tblCalificaciones.revalidate();
+        this.tblCalificaciones.repaint();
+    }
+
+    public void btnOkDel() {
+        btnOk = new JButton("OK");
+        btnOk.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ArrayList<Parcial> temp = mtp.getAlumno().getMaterias().get(0).getParciales();
+                for (int i = 0; i < temp.size(); i++) {
+                    if (chk.get(i).isSelected()) {
+                        for (int j = 0; j < mtp.getAlumno().getMaterias().size(); j++) {
+                            mtp.getAlumno().getMaterias().get(i).getParciales().remove(j-1);
+                        }
+                    }
+                }
+                chk.clear();
+                panelParciales.removeAll();
+                panelParciales.repaint();
+            }
+
+        });
+
+        this.tblCalificaciones.revalidate();
+        this.tblCalificaciones.repaint();
+    }
 
     private void limparFormulario() {
         this.txtBuscar.setText("");
@@ -544,8 +611,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevas;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
