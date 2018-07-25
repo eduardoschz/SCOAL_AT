@@ -23,6 +23,7 @@ public class Materia implements Serializable{
     public Materia(String nombre) {
         this.nombre = nombre;
         this.parciales = new ArrayList<>();
+        this.parciales.add(new Parcial(1, 0.0));
     }
 
     public String getNombre() {

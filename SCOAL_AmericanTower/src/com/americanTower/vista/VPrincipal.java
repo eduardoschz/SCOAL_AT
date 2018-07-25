@@ -7,9 +7,13 @@ package com.americanTower.vista;
 
 import com.americanTower.control.Alumno;
 import com.americanTower.archivo.Archivo;
+import com.americanTower.modelo.ModeloTablaParciales;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -23,10 +27,12 @@ public class VPrincipal extends javax.swing.JFrame {
     private int indice;
     private Archivo archivo = new Archivo();
     private DefaultListModel modeloLista = new DefaultListModel();
+    private ModeloTablaParciales mtp;
 
     public VPrincipal() {
         initComponents();
         listBusqueda.setModel(modeloLista);
+
         this.setLocationRelativeTo(this);
     }
 
@@ -62,7 +68,7 @@ public class VPrincipal extends javax.swing.JFrame {
         btnNuevas = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panelParciales = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         lblPath = new javax.swing.JLabel();
@@ -132,7 +138,12 @@ public class VPrincipal extends javax.swing.JFrame {
 
         panCambios.setBorder(javax.swing.BorderFactory.createTitledBorder("Cambios"));
 
-        btnNuevas.setText("Nueva Parcial");
+        btnNuevas.setText("Nuevo Parcial");
+        btnNuevas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevasActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
 
@@ -165,16 +176,16 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cambios"));
+        panelParciales.setBorder(javax.swing.BorderFactory.createTitledBorder("Cambios"));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelParcialesLayout = new javax.swing.GroupLayout(panelParciales);
+        panelParciales.setLayout(panelParcialesLayout);
+        panelParcialesLayout.setHorizontalGroup(
+            panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelParcialesLayout.setVerticalGroup(
+            panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -241,7 +252,7 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -279,7 +290,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -383,12 +394,28 @@ public class VPrincipal extends javax.swing.JFrame {
             this.txtPaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoPat());
             this.txtMaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoMat());
             this.txtMatricula.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getMatricula());
+            mtp.setAlumno(lista.get(index.get(listBusqueda.getSelectedIndex())));
+            this.tblCalificaciones.setModel(mtp);
+            this.tblCalificaciones.revalidate();
         }
     }//GEN-LAST:event_listBusquedaMouseClicked
 
     private void menuGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarComoActionPerformed
         archivo.generaCSV(lista);
     }//GEN-LAST:event_menuGuardarComoActionPerformed
+
+    private void btnNuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevasActionPerformed
+        GridLayout gl = new GridLayout(1, 2);
+        panelParciales.setLayout(gl);
+        JLabel lblTemp = new JLabel("Parcial nuevo");
+        lblTemp.setSize(30, 20);
+        JTextField txtTemp = new JTextField();
+        txtTemp.setSize(30, 20);
+        panelParciales.add(lblTemp);
+        panelParciales.add(txtTemp);
+        panelParciales.revalidate();
+        
+    }//GEN-LAST:event_btnNuevasActionPerformed
 
     private void limparFormulario() {
         this.txtBuscar.setText("");
@@ -509,7 +536,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -530,6 +556,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuGuardarComo;
     private javax.swing.JMenuItem menuNuevo;
     private javax.swing.JPanel panCambios;
+    private javax.swing.JPanel panelParciales;
     private javax.swing.JScrollPane scrollList;
     private javax.swing.JScrollPane scrollTabla;
     private javax.swing.JTable tblCalificaciones;

@@ -337,7 +337,7 @@ public class VListaAlumno extends javax.swing.JFrame {
             matIns.add(mat.get(listMatDisp.getSelectedIndex()));
 
             modelLisMatDis.remove(listMatDisp.getSelectedIndex());
-            mat.remove(listMatDisp.getSelectedIndex());
+            mat.remove(listMatDisp.getSelectedIndex()+1);
 
             listMatDisp.revalidate();
             listMatIns.revalidate();
@@ -353,7 +353,7 @@ public class VListaAlumno extends javax.swing.JFrame {
             mat.add(matIns.get(listMatIns.getSelectedIndex()));
 
             modelListMatIns.remove(listMatIns.getSelectedIndex());
-            matIns.remove(listMatIns.getSelectedIndex());
+            matIns.remove(listMatIns.getSelectedIndex()+1);
 
             listMatDisp.revalidate();
             listMatIns.revalidate();
@@ -382,7 +382,13 @@ public class VListaAlumno extends javax.swing.JFrame {
         mat = copiaMat;
         matIns = new ArrayList<>();
         
+        for (int i = 0; i < mat.size(); i++) {
+            modelLisMatDis.addElement(mat.get(i).getNombre());
+        }
+        listMatDisp.setModel(modelLisMatDis);
+        
         listMatDisp.revalidate();
+        
         listMatIns.revalidate();
         
     }
