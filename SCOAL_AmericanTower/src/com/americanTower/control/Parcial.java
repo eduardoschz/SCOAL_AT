@@ -1,10 +1,12 @@
 package com.americanTower.control;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Eduardo Sanchez
  */
-public class Parcial {
+public class Parcial implements Serializable{
 
     private Integer parcial;
     private Double calificacion;

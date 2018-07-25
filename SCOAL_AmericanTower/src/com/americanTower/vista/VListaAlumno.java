@@ -5,10 +5,13 @@
  */
 package com.americanTower.vista;
 
+import com.americanTower.control.Alumno;
 import com.americanTower.control.Archivo;
 import com.americanTower.control.Materia;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,8 +20,10 @@ import javax.swing.DefaultListModel;
 public class VListaAlumno extends javax.swing.JFrame {
 
     private Archivo a = new Archivo();
-    private ArrayList<Materia> mat = new ArrayList<>();
+    private ArrayList<Materia> mat = new ArrayList<>(), matIns = new ArrayList<>(), copiaMat = new ArrayList<>();
     private DefaultListModel modelLisMatDis = new DefaultListModel(), modelListMatIns = new DefaultListModel();
+    private ArrayList<Alumno> alumnos = new ArrayList<>();
+    private final Color RED = new Color(255, 204, 204, 255);
 
     public VListaAlumno() {
         initComponents();
@@ -65,7 +70,7 @@ public class VListaAlumno extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nombre");
 
@@ -114,8 +119,18 @@ public class VListaAlumno extends javax.swing.JFrame {
         );
 
         btnEliminaM.setText("<< Eliminar");
+        btnEliminaM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminaMActionPerformed(evt);
+            }
+        });
 
         btnInscribe.setText("Añadir >>");
+        btnInscribe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribeActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,6 +151,11 @@ public class VListaAlumno extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         btnAdd.setText("Añadir");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnDel.setText("Eliminar");
 
@@ -227,6 +247,11 @@ public class VListaAlumno extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem1.setText("Guardar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -243,6 +268,11 @@ public class VListaAlumno extends javax.swing.JFrame {
         jMenu.add(jSeparator1);
 
         jMenuItem3.setText("Nuevas materias");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu.add(jMenuItem3);
 
         jMenuBar1.add(jMenu);
@@ -265,11 +295,86 @@ public class VListaAlumno extends javax.swing.JFrame {
 
     private void itemCargarMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCargarMatActionPerformed
         mat = a.leerArchivoMaterias_S();
+        copiaMat = mat;
         for (int i = 0; i < mat.size(); i++) {
-            modelLisMatDis.addElement(mat.get(i));
+            modelLisMatDis.addElement(mat.get(i).getNombre().toUpperCase());
         }
         listMatDisp.revalidate();
     }//GEN-LAST:event_itemCargarMatActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        if (txtNom.equals("") || txtPat.equals("") || txtMat.equals("") || txtMatri.equals("") || matIns.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Uno de los campos está vacío \n"
+                    + "o no hay materias inscritas.", "SCOAL", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Alumno temp = new Alumno();
+            temp.setNombre(txtNom.getText());
+            temp.setApellidoPat(txtPat.getText());
+            temp.setApellidoMat(txtMat.getText());
+            temp.setMatricula(txtMatri.getText());
+            temp.setMaterias(matIns);
+
+            alumnos.add(temp);
+            temp = null;
+            limpiar();
+        }
+
+
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnInscribeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribeActionPerformed
+        if (listMatDisp.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna materia(s).", "SCOAL", JOptionPane.WARNING_MESSAGE);
+        } else {
+            modelListMatIns.addElement(modelLisMatDis.get(listMatDisp.getSelectedIndex()-1));
+            matIns.add(mat.get(listMatDisp.getSelectedIndex()));
+
+            modelLisMatDis.remove(listMatDisp.getSelectedIndex()-1);
+            mat.remove(listMatDisp.getSelectedIndex());
+
+            listMatDisp.revalidate();
+            listMatIns.revalidate();
+        }
+    }//GEN-LAST:event_btnInscribeActionPerformed
+
+    private void btnEliminaMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminaMActionPerformed
+        if (listMatIns.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningina materia(s).", "SCOAL", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            modelLisMatDis.addElement(modelListMatIns.get(listMatIns.getSelectedIndex()));
+            mat.add(matIns.get(listMatIns.getSelectedIndex()));
+
+            modelListMatIns.remove(listMatIns.getSelectedIndex()-1);
+            matIns.remove(listMatIns.getSelectedIndex());
+
+            listMatDisp.revalidate();
+            listMatIns.revalidate();
+        }
+    }//GEN-LAST:event_btnEliminaMActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new VMateria().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        a.guardarArchivoAlumnos_S(alumnos);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void limpiar() {
+        txtNom.setText("");
+        txtPat.setText("");
+        txtMat.setText("");
+        txtMat.setText("");
+        txtMatri.setText("");
+        
+        mat = copiaMat;
+        matIns = new ArrayList<>();
+        
+        listMatDisp.revalidate();
+        listMatIns.revalidate();
+        
+    }
 
     /**
      * @param args the command line arguments

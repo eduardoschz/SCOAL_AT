@@ -428,9 +428,6 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private int binaria(int a, int b) {
-        return 0;
-    }
 
     /**
      * @param args the command line arguments

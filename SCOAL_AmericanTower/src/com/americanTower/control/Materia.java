@@ -5,13 +5,14 @@
  */
 package com.americanTower.control;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Eduardo Sanchez
  */
-public class Materia {
+public class Materia implements Serializable{
 
     private String nombre;
     private ArrayList<Parcial> parciales;

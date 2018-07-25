@@ -5,13 +5,14 @@
  */
 package com.americanTower.control;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Eduardo Sanchez
  */
-public class Alumno {
+public class Alumno implements Serializable{
 
     private String nombre;
     private String apellidoPat;
