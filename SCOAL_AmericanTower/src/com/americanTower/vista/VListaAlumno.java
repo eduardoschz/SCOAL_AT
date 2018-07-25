@@ -33,7 +33,7 @@ public class VListaAlumno extends javax.swing.JFrame {
         this.listMatIns.setModel(modelListMatIns);
         this.mtaln.setDatos(alumnos);
         this.tblAlumnos.setModel(mtaln);
-        
+
         this.setLocationRelativeTo(this);
     }
 
@@ -67,7 +67,6 @@ public class VListaAlumno extends javax.swing.JFrame {
         tblAlumnos = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itemGuardar = new javax.swing.JMenuItem();
@@ -164,8 +163,11 @@ public class VListaAlumno extends javax.swing.JFrame {
         });
 
         btnDel.setText("Eliminar");
-
-        btnEdit.setText("Editar");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,9 +207,7 @@ public class VListaAlumno extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEdit)))
+                                .addComponent(btnDel)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -243,8 +243,7 @@ public class VListaAlumno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnDel)
-                    .addComponent(btnEdit))
+                    .addComponent(btnDel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
@@ -324,14 +323,10 @@ public class VListaAlumno extends javax.swing.JFrame {
             temp = null;
             limpiar();
             actualizaTabla();
-            
-            for (int i = 0; i < copiaMat.size(); i++) {
-                modelLisMatDis.addElement(copiaMat.get(i).getNombre().toUpperCase());
-            }
+
             modelListMatIns.clear();
-            listMatDisp.setModel(modelLisMatDis);
-            listMatDisp.revalidate();
-            listMatDisp.repaint();
+            listMatIns.revalidate();
+            matIns.clear();
         }
 
 
@@ -343,9 +338,6 @@ public class VListaAlumno extends javax.swing.JFrame {
         } else {
             modelListMatIns.addElement(modelLisMatDis.get(listMatDisp.getSelectedIndex()));
             matIns.add(mat.get(listMatDisp.getSelectedIndex()));
-
-            modelLisMatDis.remove(listMatDisp.getSelectedIndex());
-            mat.remove(listMatDisp.getSelectedIndex()+1);
 
             listMatDisp.revalidate();
             listMatDisp.repaint();
@@ -359,11 +351,8 @@ public class VListaAlumno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado ningina materia(s).", "SCOAL", JOptionPane.WARNING_MESSAGE);
         } else {
 
-            modelLisMatDis.addElement(modelListMatIns.get(listMatIns.getSelectedIndex()));
-            mat.add(matIns.get(listMatIns.getSelectedIndex()));
-
             modelListMatIns.remove(listMatIns.getSelectedIndex());
-            matIns.remove(listMatIns.getSelectedIndex()+1);
+            matIns.remove(listMatIns.getSelectedIndex() + 1);
 
             listMatDisp.revalidate();
             listMatIns.revalidate();
@@ -378,29 +367,30 @@ public class VListaAlumno extends javax.swing.JFrame {
         a.guardarArchivoAlumnos_S(alumnos);
     }//GEN-LAST:event_itemGuardarActionPerformed
 
-    private void actualizaTabla(){
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        if (this.tblAlumnos.getSelectedRow() ==-1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun registro-", "SCOAL", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int a=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar esto?", "SOCAL", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (a==JOptionPane.YES_OPTION) {
+                this.alumnos.remove(this.tblAlumnos.getSelectedRow());
+                actualizaTabla();
+            }
+            
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void actualizaTabla() {
         this.mtaln.setDatos(alumnos);
         this.tblAlumnos.revalidate();
     }
+
     private void limpiar() {
         txtNom.setText("");
         txtPat.setText("");
         txtMat.setText("");
         txtMat.setText("");
         txtMatri.setText("");
-        
-        mat = copiaMat;
-        matIns = new ArrayList<>();
-        
-        for (int i = 0; i < mat.size(); i++) {
-            modelLisMatDis.addElement(mat.get(i).getNombre());
-        }
-        listMatDisp.setModel(modelLisMatDis);
-        
-        listMatDisp.revalidate();
-        
-        listMatIns.revalidate();
-        
     }
 
     /**
@@ -442,7 +432,6 @@ public class VListaAlumno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEliminaM;
     private javax.swing.JButton btnInscribe;
     private javax.swing.JMenuItem itemCargarMat;

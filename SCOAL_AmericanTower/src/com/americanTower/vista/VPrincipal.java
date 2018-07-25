@@ -76,6 +76,8 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblPeso = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuAbrir = new javax.swing.JMenuItem();
@@ -181,7 +183,7 @@ public class VPrincipal extends javax.swing.JFrame {
         panelParciales.setLayout(panelParcialesLayout);
         panelParcialesLayout.setHorizontalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
         );
         panelParcialesLayout.setVerticalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,6 +206,10 @@ public class VPrincipal extends javax.swing.JFrame {
         lblPeso.setText("0 Kb");
         jToolBar1.add(lblPeso);
         jToolBar1.add(jSeparator3);
+
+        jButton2.setText("OK");
+
+        jButton3.setText("Cancel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,11 +245,16 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblMaterno)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelParciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelParciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton3))
+                                .addGap(92, 92, 92))
                             .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNombre))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -282,13 +293,19 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3))))
         );
 
         jMenu1.setText("Archivo");
@@ -393,7 +410,7 @@ public class VPrincipal extends javax.swing.JFrame {
             Alumno t = lista.get(b);
             mtp = new ModeloTablaParciales();
             mtp.setAlumno(t);
-           
+
             this.tblCalificaciones.setModel(mtp);
             this.tblCalificaciones.revalidate();
         }
@@ -404,16 +421,18 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarComoActionPerformed
 
     private void btnNuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevasActionPerformed
-        GridLayout gl = new GridLayout(1, 2);
+        GridLayout gl = new GridLayout(mtp.getDatos().getMaterias().size(), 2);
         panelParciales.setLayout(gl);
-        JLabel lblTemp = new JLabel("Parcial nuevo");
-        lblTemp.setSize(30, 20);
-        JTextField txtTemp = new JTextField();
-        txtTemp.setSize(30, 20);
-        panelParciales.add(lblTemp);
-        panelParciales.add(txtTemp);
+        for (int i = 0; i < mtp.getDatos().getMaterias().size(); i++) {
+            JLabel lblTemp = new JLabel(mtp.getDatos().getMaterias().get(i).getNombre());
+            lblTemp.setSize(30, 20);
+            JTextField txtTemp = new JTextField();
+            txtTemp.setSize(30, 20);
+            panelParciales.add(lblTemp);
+            panelParciales.add(txtTemp);
+        }
         panelParciales.revalidate();
-        
+
     }//GEN-LAST:event_btnNuevasActionPerformed
 
     private void limparFormulario() {
@@ -525,6 +544,8 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevas;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
