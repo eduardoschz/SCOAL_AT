@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/control/Tesst.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/control/Parcial.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/control/Alumno.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/modelo/ModeloTablaParciales.java</file>
             <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/vista/VListaAlumno.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/archivo/Archivo.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/archivo/FiltroListaAlumnos.java</file>
             <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/vista/VMateria.java</file>
+            <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/control/Materia.java</file>
             <file>file:/C:/Users/Eduardo%20Sanchez/Documents/NetBeansProjects/SCOAL_AT/SCOAL_AmericanTower/src/com/americanTower/vista/VPrincipal.java</file>
         </group>
     </open-files>

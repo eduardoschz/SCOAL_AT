@@ -324,6 +324,14 @@ public class VListaAlumno extends javax.swing.JFrame {
             temp = null;
             limpiar();
             actualizaTabla();
+            
+            for (int i = 0; i < copiaMat.size(); i++) {
+                modelLisMatDis.addElement(copiaMat.get(i).getNombre().toUpperCase());
+            }
+            modelListMatIns.clear();
+            listMatDisp.setModel(modelLisMatDis);
+            listMatDisp.revalidate();
+            listMatDisp.repaint();
         }
 
 
@@ -340,7 +348,9 @@ public class VListaAlumno extends javax.swing.JFrame {
             mat.remove(listMatDisp.getSelectedIndex()+1);
 
             listMatDisp.revalidate();
+            listMatDisp.repaint();
             listMatIns.revalidate();
+            listMatIns.repaint();
         }
     }//GEN-LAST:event_btnInscribeActionPerformed
 

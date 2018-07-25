@@ -6,6 +6,8 @@
 package com.americanTower.modelo;
 
 import com.americanTower.control.Alumno;
+import com.americanTower.control.Materia;
+import com.americanTower.control.Parcial;
 import java.util.ArrayList;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -17,13 +19,15 @@ import javax.swing.table.TableModel;
 public class ModeloTablaParciales implements TableModel {
 
     private Alumno alumno;
+    private ArrayList<Materia> materias;
 
     public ModeloTablaParciales() {
     }
 
-    public ModeloTablaParciales(Alumno datos) {
+    public ModeloTablaParciales(Alumno a) {
         super();
-        this.alumno = datos;
+        this.alumno = a;
+        this.materias = a.getMaterias();
     }
 
     public Alumno getDatos() {
@@ -41,7 +45,7 @@ public class ModeloTablaParciales implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return alumno.getMaterias().get(0).getParciales().size();
+        return this.alumno.getMaterias().get(0).getParciales().size() + 1;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class ModeloTablaParciales implements TableModel {
             case 0:
                 return String.class;
             default:
-                return Double.class;
+                return String.class;
         }
     }
 
@@ -76,7 +80,20 @@ public class ModeloTablaParciales implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+        materias = alumno.getMaterias();
+        for (int i = 0; i < materias.size(); i++) {
+            System.out.println(materias.get(i).getNombre());
+        }
+        Materia temp = materias.get(rowIndex);
+        System.out.println("ri" + temp.getNombre());
+
+        switch (columnIndex) {
+            case 0:
+                return temp.getNombre();
+            default:
+                return String.format("%.2f", temp.getParciales().get(columnIndex - 1).getCalificacion());
+        }
+
     }
 
     @Override

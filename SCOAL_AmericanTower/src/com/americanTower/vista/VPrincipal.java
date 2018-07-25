@@ -76,8 +76,6 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblPeso = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jLabel5 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuAbrir = new javax.swing.JMenuItem();
@@ -119,6 +117,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         listBusqueda.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listBusqueda.setVisibleRowCount(4);
         listBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listBusquedaMouseClicked(evt);
@@ -182,7 +181,7 @@ public class VPrincipal extends javax.swing.JFrame {
         panelParciales.setLayout(panelParcialesLayout);
         panelParcialesLayout.setHorizontalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 419, Short.MAX_VALUE)
         );
         panelParcialesLayout.setVerticalGroup(
             panelParcialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,23 +191,19 @@ public class VPrincipal extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jLabel1.setText("Ruta archivo");
+        jLabel1.setText("Ruta archivo: ");
         jToolBar1.add(jLabel1);
 
         lblPath.setText("path");
         jToolBar1.add(lblPath);
         jToolBar1.add(jSeparator2);
 
-        jLabel2.setText("Tamaño:");
+        jLabel2.setText("Tamaño: ");
         jToolBar1.add(jLabel2);
 
         lblPeso.setText("0 Kb");
         jToolBar1.add(lblPeso);
         jToolBar1.add(jSeparator3);
-
-        jLabel5.setText("general tooltip");
-        jToolBar1.add(jLabel5);
-        jToolBar1.add(jSeparator5);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -217,26 +212,20 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollTabla)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBusqueda)
-                            .addComponent(lblMatricula))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(lblMatricula)
+                            .addComponent(lblBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCriterio)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCriterio)
-                                .addGap(96, 96, 96))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbxCriterio, 0, 117, Short.MAX_VALUE)
+                                .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(scrollList))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblNombre)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(btnBuscar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(scrollList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtMatricula, javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,8 +240,13 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addComponent(lblMaterno)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelParciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelParciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNombre))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -266,16 +260,16 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(scrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                        .addGap(24, 24, 24))
+                        .addComponent(scrollList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 5, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMatricula)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(lblMatricula)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -355,11 +349,11 @@ public class VPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -394,7 +388,12 @@ public class VPrincipal extends javax.swing.JFrame {
             this.txtPaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoPat());
             this.txtMaterno.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getApellidoMat());
             this.txtMatricula.setText(lista.get(index.get(listBusqueda.getSelectedIndex())).getMatricula());
-            mtp.setAlumno(lista.get(index.get(listBusqueda.getSelectedIndex())));
+            int a = listBusqueda.getSelectedIndex();
+            int b = index.get(a);
+            Alumno t = lista.get(b);
+            mtp = new ModeloTablaParciales();
+            mtp.setAlumno(t);
+           
             this.tblCalificaciones.setModel(mtp);
             this.tblCalificaciones.revalidate();
         }
@@ -422,8 +421,6 @@ public class VPrincipal extends javax.swing.JFrame {
         this.txtMaterno.setText("");
         this.txtPaterno.setText("");
         this.txtNombre.setText("");
-        this.lblPeso.setText(" ");
-        this.lblPath.setText(" ");
     }
 
     private void buscar(String criterio, String elemento) {
@@ -434,8 +431,8 @@ public class VPrincipal extends javax.swing.JFrame {
             switch (criterio) {
                 case "Nombre":
                     for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(indice).getNombre().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice).nombreCompleto());
+                        if (lista.get(i).getNombre().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(i).nombreCompleto());
                             index.add(i);
                         }
                         listBusqueda.revalidate();
@@ -447,8 +444,8 @@ public class VPrincipal extends javax.swing.JFrame {
                     break;
                 case "Apellido Paterno":
                     for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(indice).getApellidoPat().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice).nombreCompleto());
+                        if (lista.get(i).getApellidoPat().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(i).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
@@ -459,8 +456,8 @@ public class VPrincipal extends javax.swing.JFrame {
                     break;
                 case "Apellido Materno":
                     for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(indice).getApellidoMat().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice).nombreCompleto());
+                        if (lista.get(i).getApellidoMat().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(i).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
@@ -471,8 +468,8 @@ public class VPrincipal extends javax.swing.JFrame {
                     break;
                 case "Matricula":
                     for (int i = 0; i < lista.size(); i++) {
-                        if (lista.get(indice).getMatricula().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice).nombreCompleto());
+                        if (lista.get(i).getMatricula().startsWith(elemento)) {
+                            modeloLista.addElement(lista.get(i).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
@@ -530,7 +527,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -539,7 +535,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblBusqueda;
     private javax.swing.JLabel lblCriterio;
