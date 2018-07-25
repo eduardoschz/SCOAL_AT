@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.americanTower.control;
+package com.americanTower.archivo;
 
+import com.americanTower.control.Alumno;
+import com.americanTower.control.Materia;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;

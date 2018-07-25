@@ -6,7 +6,7 @@
 package com.americanTower.vista;
 
 import com.americanTower.control.Alumno;
-import com.americanTower.control.Archivo;
+import com.americanTower.archivo.Archivo;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class VPrincipal extends javax.swing.JFrame {
 
     private ArrayList<Alumno> lista = new ArrayList<>();
+    private ArrayList<Integer> index = new ArrayList<>();
     private Alumno temp;
     private int indice;
     private Archivo archivo = new Archivo();
@@ -26,6 +27,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal() {
         initComponents();
         listBusqueda.setModel(modeloLista);
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -111,6 +113,11 @@ public class VPrincipal extends javax.swing.JFrame {
 
         listBusqueda.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listBusquedaMouseClicked(evt);
+            }
+        });
         scrollList.setViewportView(listBusqueda);
 
         tblCalificaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -282,7 +289,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         menuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        menuAbrir.setText("Abrir...");
+        menuAbrir.setText("Abrir lista");
         menuAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuAbrirActionPerformed(evt);
@@ -291,7 +298,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuAbrir);
 
         menuNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        menuNuevo.setText("Nuevo...");
+        menuNuevo.setText("Nueva lista de alumnos");
         menuNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuNuevoActionPerformed(evt);
@@ -347,9 +354,9 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCerrarActionPerformed
 
     private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
-        lista = archivo.leerArchivoMaterias_S();
-        this.lblPath.setText(archivo.getUbicacion());
-        this.lblPeso.setText(archivo.getPeso());
+        lista = archivo.leerArchivoAlumnos_S();
+        this.lblPath.setText(" " + archivo.getUbicacion());
+        this.lblPeso.setText(" " + archivo.getPeso());
     }//GEN-LAST:event_menuAbrirActionPerformed
 
     private void menuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarActionPerformed
@@ -357,12 +364,18 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscar((String)this.cbxCriterio.getSelectedItem(), txtBuscar.getText());
+        buscar((String) this.cbxCriterio.getSelectedItem(), txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
         new VListaAlumno().setVisible(true);
     }//GEN-LAST:event_menuNuevoActionPerformed
+
+    private void listBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listBusquedaMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.txtNombre.setText(t);
+        }
+    }//GEN-LAST:event_listBusquedaMouseClicked
 
     private void limparFormulario() {
         this.txtBuscar.setText("");
@@ -381,53 +394,57 @@ public class VPrincipal extends javax.swing.JFrame {
                 case "Nombre":
                     for (int i = 0; i < lista.size(); i++) {
                         if (lista.get(indice).getNombre().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice));
+                            modeloLista.addElement(lista.get(indice).nombreCompleto());
+                            index.add(i);
                         }
                         listBusqueda.revalidate();
                     }
                     if (listBusqueda.getModel().getSize() == 0) {
                         JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    limparFormulario();
                     break;
                 case "Apellido Paterno":
                     for (int i = 0; i < lista.size(); i++) {
                         if (lista.get(indice).getApellidoPat().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice));
+                            modeloLista.addElement(lista.get(indice).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
                     if (listBusqueda.getModel().getSize() == 0) {
                         JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    limparFormulario();
                     break;
                 case "Apellido Materno":
                     for (int i = 0; i < lista.size(); i++) {
                         if (lista.get(indice).getApellidoMat().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice));
+                            modeloLista.addElement(lista.get(indice).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
                     if (listBusqueda.getModel().getSize() == 0) {
                         JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    limparFormulario();
                     break;
                 case "Matricula":
                     for (int i = 0; i < lista.size(); i++) {
                         if (lista.get(indice).getMatricula().startsWith(elemento)) {
-                            modeloLista.addElement(lista.get(indice));
+                            modeloLista.addElement(lista.get(indice).nombreCompleto());
                         }
                         listBusqueda.revalidate();
                     }
                     if (listBusqueda.getModel().getSize() == 0) {
                         JOptionPane.showMessageDialog(this, "No hay registros con la caracteristica buscada", "SCOAL", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    limparFormulario();
                     break;
                 default:
                     break;
             }
         }
     }
-
 
     /**
      * @param args the command line arguments

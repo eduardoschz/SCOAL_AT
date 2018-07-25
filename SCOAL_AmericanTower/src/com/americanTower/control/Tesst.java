@@ -5,6 +5,7 @@
  */
 package com.americanTower.control;
 
+import com.americanTower.archivo.Archivo;
 import java.util.ArrayList;
 import java.util.Random;
 

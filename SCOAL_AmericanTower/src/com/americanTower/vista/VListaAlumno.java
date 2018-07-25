@@ -6,8 +6,9 @@
 package com.americanTower.vista;
 
 import com.americanTower.control.Alumno;
-import com.americanTower.control.Archivo;
+import com.americanTower.archivo.Archivo;
 import com.americanTower.control.Materia;
+import com.americanTower.modelo.ModeloTablaAlumnoListaNueva;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -24,11 +25,16 @@ public class VListaAlumno extends javax.swing.JFrame {
     private DefaultListModel modelLisMatDis = new DefaultListModel(), modelListMatIns = new DefaultListModel();
     private ArrayList<Alumno> alumnos = new ArrayList<>();
     private final Color RED = new Color(255, 204, 204, 255);
+    private ModeloTablaAlumnoListaNueva mtaln = new ModeloTablaAlumnoListaNueva();
 
     public VListaAlumno() {
         initComponents();
         this.listMatDisp.setModel(modelLisMatDis);
         this.listMatIns.setModel(modelListMatIns);
+        this.mtaln.setDatos(alumnos);
+        this.tblAlumnos.setModel(mtaln);
+        
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -58,17 +64,17 @@ public class VListaAlumno extends javax.swing.JFrame {
         btnEliminaM = new javax.swing.JButton();
         btnInscribe = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAlumnos = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itemGuardar = new javax.swing.JMenuItem();
         jMenu = new javax.swing.JMenu();
         itemCargarMat = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        itemNuevas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,7 +138,7 @@ public class VListaAlumno extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -148,7 +154,7 @@ public class VListaAlumno extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tblAlumnos);
 
         btnAdd.setText("Añadir");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -244,15 +250,15 @@ public class VListaAlumno extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Guardar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemGuardar.setText("Guardar");
+        itemGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemGuardarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(itemGuardar);
 
         jMenuBar1.add(jMenu1);
 
@@ -267,13 +273,13 @@ public class VListaAlumno extends javax.swing.JFrame {
         jMenu.add(itemCargarMat);
         jMenu.add(jSeparator1);
 
-        jMenuItem3.setText("Nuevas materias");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        itemNuevas.setText("Nuevas materias");
+        itemNuevas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                itemNuevasActionPerformed(evt);
             }
         });
-        jMenu.add(jMenuItem3);
+        jMenu.add(itemNuevas);
 
         jMenuBar1.add(jMenu);
 
@@ -317,6 +323,7 @@ public class VListaAlumno extends javax.swing.JFrame {
             alumnos.add(temp);
             temp = null;
             limpiar();
+            actualizaTabla();
         }
 
 
@@ -326,10 +333,10 @@ public class VListaAlumno extends javax.swing.JFrame {
         if (listMatDisp.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna materia(s).", "SCOAL", JOptionPane.WARNING_MESSAGE);
         } else {
-            modelListMatIns.addElement(modelLisMatDis.get(listMatDisp.getSelectedIndex()-1));
+            modelListMatIns.addElement(modelLisMatDis.get(listMatDisp.getSelectedIndex()));
             matIns.add(mat.get(listMatDisp.getSelectedIndex()));
 
-            modelLisMatDis.remove(listMatDisp.getSelectedIndex()-1);
+            modelLisMatDis.remove(listMatDisp.getSelectedIndex());
             mat.remove(listMatDisp.getSelectedIndex());
 
             listMatDisp.revalidate();
@@ -345,7 +352,7 @@ public class VListaAlumno extends javax.swing.JFrame {
             modelLisMatDis.addElement(modelListMatIns.get(listMatIns.getSelectedIndex()));
             mat.add(matIns.get(listMatIns.getSelectedIndex()));
 
-            modelListMatIns.remove(listMatIns.getSelectedIndex()-1);
+            modelListMatIns.remove(listMatIns.getSelectedIndex());
             matIns.remove(listMatIns.getSelectedIndex());
 
             listMatDisp.revalidate();
@@ -353,14 +360,18 @@ public class VListaAlumno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminaMActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void itemNuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNuevasActionPerformed
         new VMateria().setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_itemNuevasActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarActionPerformed
         a.guardarArchivoAlumnos_S(alumnos);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itemGuardarActionPerformed
 
+    private void actualizaTabla(){
+        this.mtaln.setDatos(alumnos);
+        this.tblAlumnos.revalidate();
+    }
     private void limpiar() {
         txtNom.setText("");
         txtPat.setText("");
@@ -419,14 +430,14 @@ public class VListaAlumno extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminaM;
     private javax.swing.JButton btnInscribe;
     private javax.swing.JMenuItem itemCargarMat;
+    private javax.swing.JMenuItem itemGuardar;
+    private javax.swing.JMenuItem itemNuevas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -434,10 +445,10 @@ public class VListaAlumno extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMat;
     private javax.swing.JList<String> listMatDisp;
     private javax.swing.JList<String> listMatIns;
+    private javax.swing.JTable tblAlumnos;
     private javax.swing.JTextField txtMat;
     private javax.swing.JTextField txtMatri;
     private javax.swing.JTextField txtNom;

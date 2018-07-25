@@ -3,33 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.americanTower.control;
+package com.americanTower.archivo;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author m01
+ * @author Eduardo Sanchez
  */
-public class FiltroListaAlumnos extends FileFilter {
+public class FiltroListaMaterias extends FileFilter{
 
     private String ext;
     private String descripcion;
 
-    public FiltroListaAlumnos() {
-        this.ext = ".lst";
-        this.descripcion = "*.lst - Lista de Alumnos";
+    public FiltroListaMaterias() {
+    this.ext = ".lmt";
+    this.descripcion = ".lmt - Lista de Materias";
     }
-
+    
     @Override
     public boolean accept(File f) {
-        return f.getName().toLowerCase().endsWith(this.ext) || f.isDirectory();
-    }
+        return f.getName().toLowerCase().endsWith(this.ext) || f.isDirectory();    }
 
     @Override
     public String getDescription() {
         return this.descripcion;
     }
-
+    
 }

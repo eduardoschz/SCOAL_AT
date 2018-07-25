@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Eduardo Sanchez
  */
-public class Alumno implements Serializable{
+public class Alumno implements Serializable {
 
     private String nombre;
     private String apellidoPat;
@@ -82,23 +82,27 @@ public class Alumno implements Serializable{
 
     }
 
-    public void calculaPromedio(){
+    public void calculaPromedio() {
         double temp1 = 0;
         for (int i = 0; i < materias.size(); i++) {
             temp1 = materias.get(i).calificacion();
         }
         promGral = temp1;
-        temp1 =0;
+        temp1 = 0;
     }
-    
+
+    public String nombreCompleto() {
+        return this.apellidoPat + " " + this.apellidoMat + " " + this.nombre;
+    }
+
     public String printToCSV() {
         StringBuilder temp = new StringBuilder();
         temp.append(this.apellidoPat).append(", ").append(this.apellidoMat).append(", ").append(this.nombre).append(", ");
-        
+
         for (int i = 0; i < materias.size(); i++) {
             temp.append(materias.get(i).printToCSV());
         }
-        temp.setCharAt(temp.length()-1, '\u0000');
+        temp.setCharAt(temp.length() - 1, '\u0000');
         return temp.toString();
     }
 

@@ -5,7 +5,7 @@
  */
 package com.americanTower.vista;
 
-import com.americanTower.control.Archivo;
+import com.americanTower.archivo.Archivo;
 import com.americanTower.control.Materia;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -23,6 +23,8 @@ public class VMateria extends javax.swing.JFrame {
     public VMateria() {
         initComponents();
         this.listMaterias.setModel(listModel);
+        
+        this.setLocationRelativeTo(this);
     }
 
     /**
