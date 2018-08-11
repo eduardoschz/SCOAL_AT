@@ -70,6 +70,7 @@ public class Archivo {
                     File archivo = new File(jfc.getSelectedFile() + ".csv");
                     FileWriter fw = new FileWriter(archivo);
                     try (BufferedWriter bw = new BufferedWriter(fw)) {
+                        
                         for (int i = 0; i < datos.size(); i++) {
                             bw.write(datos.get(i).printToCSV());
                             bw.newLine();
